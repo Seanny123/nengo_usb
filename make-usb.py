@@ -18,36 +18,42 @@ class Vividict(dict):
 
 # TODO: Figure out how to just get the most recent version and then dynamically
 # create the batch file and shell file 
-# Use http://repo.continuum.io/anaconda3/ if you want Python3, but for now we're going to use Python2, because I haven't converted the GUI to be Python2 compatible
+# Use http://repo.continuum.io/anaconda3/ and "Miniconda3" if you want Python3, but for now we're going to use Python2, because I haven't converted the GUI to be Python2 compatible
 anaconda_url = "http://repo.continuum.io/archive/"
 miniconda_url = "http://repo.continuum.io/miniconda/"
+
 soup = BeautifulSoup(urllib.urlopen(anaconda_url).read())
-most_recent_anaconda = re.search(r"[0-9]+\.[0-9]+\.[0-9]+", soup.find_all('a')[-1].text).group(0)
+most_recent_anaconda = re.search(
+    r"[0-9]+\.[0-9]+\.[0-9]+", soup.find_all('a')[-1].text
+).group(0)
+
 soup = BeautifulSoup(urllib.urlopen(miniconda_url).read())
-most_recent_miniconda = re.search(r"[0-9]+\.[0-9]+\.[0-9]+", soup.find_all('a')[-1].text).group(0)
+most_recent_miniconda = re.search(
+    r"[0-9]+\.[0-9]+\.[0-9]+", soup.find_all('a')[-1].text
+).group(0)
 
 # Where to get the various packages
 conda_list = Vividict()
 conda_list["os_x"]["64_bit"] = (
     "%sAnaconda-%s-MacOSX-x86_64.pkg" %(anaconda_url, most_recent_aanaconda,),
     "%sMiniconda-%s-MacOSX-x86_64.pkg" %(miniconda_url, most_recent_miniconda,)
-    )
+)
 conda_list["linux"]["32_bit"] = (
     "%sAnaconda-%s-Linux-x86.sh" %(anaconda_url, most_recent_anaconda,),
     "%sMiniconda-%s-Linux-x86.sh" %(miniconda_url, most_recent_miniconda,)
-    )
+)
 conda_list["linux"]["64_bit"] = (
     "%sAnaconda-%s-Linux-x86_64.sh" %(anaconda_url, most_recent_anaconda,),
     "%sMiniconda-%s-Linux-x86_64.sh" %(miniconda_url, most_recent_miniconda,)
-    )
+)
 conda_list["windows"]["32_bit"] = (
     "%sAnaconda-%s-Windows-x86.exe" %(anaconda_url, most_recent_anaconda,),
     "%sMiniconda-%s-Windows-x86.exe" %(miniconda_url, most_recent_miniconda,)
-    )
+)
 conda_list["windows"]["64_bit"] = (
     "%sAnaconda-%s-Windows-x86_64.exe" %(anaconda_url, most_recent_anaconda,),
     "%sMiniconda-%s-Windows-x86_64.exe" %(miniconda_url, most_recent_miniconda,)
-    )
+)
 
 
 # Make directories and download packages

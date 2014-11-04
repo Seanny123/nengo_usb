@@ -44,7 +44,7 @@ if[$? -ne 0 || force_install -eq True]; then
 	fi
 
 	if[dist -eq "Miniconda"]; then
-		# check which requirements aren't met and install them
+		# TODO: check which requirements aren't met and install them
 	fi
 fi
 
